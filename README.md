@@ -15,6 +15,8 @@ I provide no guarentee that it works for you. Use the code in this repository at
 
 
 ## Usage
+**Please note** that this code will not work if your Plex Media Server is password protected.
+
 Get the latest copy of the source by cloning the repository
 
 	git clone git@github.com:ksmandersen/Plex-Media-Analyzer.git
