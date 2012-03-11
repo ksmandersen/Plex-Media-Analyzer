@@ -6,7 +6,7 @@
 // Please insert the IP Address or hostname of your	  //
 // Plex Media Server.								  //
 // ================================================== //
-define('PLEX_URL', 'http://Leonard.local:32400');
+define('PLEX_URL', 'http://127.0.0.1:32400');
 
 
 
