@@ -32,6 +32,11 @@ Fill in the IP address or the hostname of your Plex Media Server.
 Open up your command line and navigate to the cloned directory and run the following command:
 
 	php plex.php
+	
+If you have issues with running the script you might need to install php or change the permissions
+of the script like so:
+
+	chmod u+x plex.php
 
 ## License
 This is free and unencumbered software released into the public domain.
