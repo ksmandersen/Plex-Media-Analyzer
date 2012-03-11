@@ -8,6 +8,9 @@ So far the code will tell you:
 * How many hours of content you have (episodes)
 * How many hours of content you have watched (episodes)
 
+## Further additions
+Wanna get some additional data from Plex? Add an issue and let me know
+
 ## Disclaimer
 The code in this repository is generally just proof of concept.
 I provide no guarentee that it works for you. Use the code in this repository at your own risk
