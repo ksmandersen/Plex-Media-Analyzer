@@ -38,7 +38,7 @@ Open up your command line and navigate to the cloned directory and run the follo
 	
 To run the Media Analyzer just type
 	
-	Analyzer
+	./Analyzer
 	
 If you wan't a more verbose output pass the ```-v``` or ```--verbose``` along.
 
