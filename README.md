@@ -40,7 +40,7 @@ To run the Media Analyzer just type
 	
 	./Analyzer
 	
-If you wan't a more verbose output pass the ```-v``` or ```--verbose``` along.
+If you wan't a more verbose output pass ```-v``` or ```--verbose``` along.
 
 ## License
 This is free and unencumbered software released into the public domain.
