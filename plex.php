@@ -70,12 +70,15 @@ class XMLHandler
 class PlexMediaAnalyzer
 {
 	private $sections, $shows, $movies;
+	private $is_verbose;
 	
-	public function __construct()
+	public function __construct($args)
 	{
-		$sections = array();
-		$shows = array();
-		$movies = array();
+		$this->sections = array();
+		$this->shows = array();
+		$this->movies = array();
+		
+		$this->is_verbose = (in_array('-v', $args) || in_array('--verbose', $args)) ? true : false;
 	}
 	
 	public function findSections()
@@ -113,9 +116,12 @@ class PlexMediaAnalyzer
 	
 	public function doStatistics()
 	{
-		echo " ===========================\n";
-		echo " TV SHOWS\n";
-		echo " ===========================\n";
+		if($this->is_verbose)
+		{
+			echo " ===========================\n";
+			echo " TV SHOWS\n";
+			echo " ===========================\n";	
+		}
 		
 		$watched = 0;
 		$total = 0;
@@ -124,9 +130,12 @@ class PlexMediaAnalyzer
 		
 		foreach($this->shows as $title => $show)
 		{	
-			echo " ---------------------------\n";
-			echo " " . $title . "\n";
-			echo " ---------------------------\n";
+			if($this->is_verbose)
+			{
+				echo " ---------------------------\n";
+				echo " " . $title . "\n";
+				echo " ---------------------------\n";	
+			}
 			
 			$swatched = 0;
 			$stotal = 0;
@@ -151,10 +160,13 @@ class PlexMediaAnalyzer
 			$sunwatched = $stotal - $swatched;
 			$shduration = round($sduration/3600000, 1);
 			
-			echo " Seasons: $sseasons\n";
-			echo " Episodes: $stotal\n";
-			echo " Unwatched: $sunwatched\n";
-			echo " ---------------------------\n";
+			if($this->is_verbose)
+			{
+				echo " Seasons: $sseasons\n";
+				echo " Episodes: $stotal\n";
+				echo " Unwatched: $sunwatched\n";
+				echo " ---------------------------\n";
+			}
 			
 			$watched += $swatched;
 			$total += $stotal;
@@ -165,23 +177,28 @@ class PlexMediaAnalyzer
 
 		$hduration = round($duration/3600000, 1);
 		$show_count = count($this->shows);
-		echo "\n\n";
-		echo " ---------------------------\n";
-		echo " Shows: $show_count\n";
-		echo " Episodes: $total\n";
-		echo " Watched: $watched ($hduration hours)\n\n";
-		echo " ---------------------------\n";
-		
-		echo " ===========================\n";
-		echo " Movies\n";
-		echo " ===========================\n";
+		if($this->is_verbose)
+		{
+			echo "\n\n";
+			echo " ---------------------------\n";
+			echo " Shows: $show_count\n";
+			echo " Episodes: $total\n";
+			echo " Watched: $watched ($hduration hours)\n";
+			echo " ---------------------------\n";
+			
+			echo " ===========================\n";
+			echo " Movies\n";
+			echo " ===========================\n";	
+		}
 		
 		
 		$watched_movies = 0;
 		$duration_movies = 0;
 		foreach($this->movies as $key => $movie)
 		{
-			//echo " " . $key . "\n";
+			if($this->is_verbose)
+				echo " " . $key . "\n";
+				
 			$duration_movies += $movie->count * $movie->duration;
 			if ($movie->count > 0)
 				$watched_movies++;
@@ -189,11 +206,20 @@ class PlexMediaAnalyzer
 		
 		$hduration_movies = round($duration_movies/3600000, 1);
 		$movie_count = count($this->movies);
-		echo "\n\n";
-		echo " ---------------------------\n";
-		echo " Movies: $movie_count\n";
-		echo " Watched $watched_movies ($hduration_movies hours)\n\n";
-		echo " ---------------------------\n";
+		if($this->is_verbose)
+		{
+			echo "\n\n";
+			echo " ---------------------------\n";
+			echo " Movies: $movie_count\n";
+			echo " Watched $watched_movies ($hduration_movies hours)\n";
+			echo " ---------------------------\n";	
+		}
+		
+		if(!$this->is_verbose)
+		{
+			echo "Found $movie_count movies and $total episodes (in $show_count shows)\n";
+			echo "You have watched $watched_movies ($hduration_movies hours) and $watched episodes ($hduration hours)\n";
+		}
 		
 	}
 	
@@ -270,30 +296,17 @@ class PlexMediaAnalyzer
 	} // #parseShowsection
 }
 
+array_shift($argv);
 
-
-$mtime = microtime(); 
-$mtime = explode(" ",$mtime); 
-$mtime = $mtime[1] + $mtime[0]; 
-$starttime = $mtime; 
-
-// Go find that content pl0x!
-$pma = new PlexMediaAnalyzer;
-$pma->findContent();
-
-$mtime = microtime(); 
-$mtime = explode(" ",$mtime); 
-$mtime = $mtime[1] + $mtime[0]; 
-$endtime = $mtime; 
-$totaltime = round($endtime - $starttime,3); 
-
-// Give me some stats biatch!
-$pma->doStatistics();
-
-echo "\n Runtime: ".$totaltime." seconds\n-------------------------\n"; 
-
-
-
-
+try
+{
+	$pma = new PlexMediaAnalyzer($argv);
+	$pma->findContent();
+	$pma->doStatistics();	
+}
+catch (Exception $e)
+{
+	echo "Error:\r\n", $e->getMessage(), "\r\n";	
+}
 
 ?>

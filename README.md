@@ -36,6 +36,8 @@ Open up your command line and navigate to the cloned directory and run the follo
 
 	php plex.php
 	
+If you wan't a more verbose output pass the ```-v´´´ or ```--verbose´´´ along.
+	
 If you have issues with running the script you might need to install php or change the permissions
 of the script like so:
 
