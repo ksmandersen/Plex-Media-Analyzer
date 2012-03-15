@@ -27,21 +27,20 @@ Get the latest copy of the source by cloning the repository
 
 	git clone git@github.com:ksmandersen/Plex-Media-Analyzer.git
 	
-Navigate to the cloned directory and edit the following line in the ```plex.php´´´ file
+Navigate to the cloned directory and edit the following line in the ```Analyzer``` file
 
 	define('PLEX_URL', 'http://127.0.0.1:32400');
 	
 Fill in the IP address or the hostname of your Plex Media Server.
 Open up your command line and navigate to the cloned directory and run the following command:
 
-	php plex.php
+	chmod u+x Analyzer
 	
-If you wan't a more verbose output pass the ```-v´´´ or ```--verbose´´´ along.
+To run the Media Analyzer just type
 	
-If you have issues with running the script you might need to install php or change the permissions
-of the script like so:
-
-	chmod u+x plex.php
+	Analyzer
+	
+If you wan't a more verbose output pass the ```-v``` or ```--verbose``` along.
 
 ## License
 This is free and unencumbered software released into the public domain.
