@@ -218,7 +218,7 @@ class PlexMediaAnalyzer
 		if(!$this->is_verbose)
 		{
 			echo "Found $movie_count movies and $total episodes (in $show_count shows)\n";
-			echo "You have watched $watched_movies ($hduration_movies hours) and $watched episodes ($hduration hours)\n";
+			echo "You have watched $watched_movies movies ($hduration_movies hours) and $watched episodes ($hduration hours)\n";
 		}
 		
 	}
