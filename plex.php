@@ -181,8 +181,10 @@ class PlexMediaAnalyzer
 		$duration_movies = 0;
 		foreach($this->movies as $key => $movie)
 		{
-			echo " " . $key . "\n";
+			//echo " " . $key . "\n";
 			$duration_movies += $movie->count * $movie->duration;
+			if ($movie->count > 0)
+				$watched_movies++;
 		}
 		
 		$hduration_movies = round($duration_movies/3600000, 1);
