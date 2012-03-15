@@ -7,6 +7,9 @@ So far the code will tell you:
 * How many episodes you have watched
 * How many hours of content you have (episodes)
 * How many hours of content you have watched (episodes)
+* How many movies you have
+* How many movies you have watched
+* How many hours of content you have watched (movies)
 
 ## Further additions
 Wanna get some additional data from Plex? Add an issue and let me know

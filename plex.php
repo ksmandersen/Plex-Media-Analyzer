@@ -69,12 +69,13 @@ class XMLHandler
  */
 class PlexMediaAnalyzer
 {
-	private $sections, $shows;
+	private $sections, $shows, $movies;
 	
 	public function __construct()
 	{
 		$sections = array();
 		$shows = array();
+		$movies = array();
 	}
 	
 	public function findSections()
@@ -105,13 +106,17 @@ class PlexMediaAnalyzer
 				
 			if($section['type'] == 'show')
 				$this->parseShowSection($xml);
-			//else if($section['type'] == 'movie')
-			//	$this->parseMovieSection($xml);
+			else if($section['type'] == 'movie')
+				$this->parseMovieSection($xml);
 		}
 	}
 	
 	public function doStatistics()
 	{
+		echo " ===========================\n";
+		echo " TV SHOWS\n";
+		echo " ===========================\n";
+		
 		$watched = 0;
 		$total = 0;
 		$seasons = 0;
@@ -164,11 +169,43 @@ class PlexMediaAnalyzer
 		echo " ---------------------------\n";
 		echo " Shows: $show_count\n";
 		echo " Episodes: $total\n";
-		echo " Watched: $watched ($hduration hours)\n";
+		echo " Watched: $watched ($hduration hours)\n\n";
 		echo " ---------------------------\n";
+		
+		echo " ===========================\n";
+		echo " Movies\n";
+		echo " ===========================\n";
+		
+		
+		$watched_movies = 0;
+		$duration_movies = 0;
+		foreach($this->movies as $key => $movie)
+		{
+			echo " " . $key . "\n";
+			$duration_movies += $movie->count * $movie->duration;
+		}
+		
+		$hduration_movies = round($duration_movies/3600000, 1);
+		$movie_count = count($this->movies);
+		echo "\n\n";
+		echo " ---------------------------\n";
+		echo " Movies: $movie_count\n";
+		echo " Watched $watched_movies ($hduration_movies hours)\n\n";
+		echo " ---------------------------\n";
+		
 	}
 	
-	public function parseShowSection($xml)
+	private function parseMovieSection($xml)
+	{
+		foreach($xml->Video as $movie)
+		{
+			$title = (string) $movie->attributes()->title;
+			$this->movies[$title]->duration = (integer) $movie->attributes()->duration;
+			$this->movies[$title]->count = (integer) $movie->attributes()->viewCount;
+		}
+	}
+	
+	private function parseShowSection($xml)
 	{
 		$show_count = 0;
 		$show_count_watched = 0;
