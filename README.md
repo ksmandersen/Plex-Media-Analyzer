@@ -4,6 +4,7 @@ Plex for all your media, well then you're in luck. This code can you help you fi
 interesting statistics on your Plex Media Server usage.
 
 So far the code will tell you:
+
 * How many shows you have
 * How many episodes you have (for each show and in total)
 * How many episodes you have watched
